@@ -23,11 +23,18 @@ __global__ void VecAdd(float* A, float* B, float* C)
 
 One CUDA warp can be processed by one cuda core only. 
 
-```
 - gridDim: How many blocks in each x,y,z axis in the grid
 - blockDim: How many threads in each x,y,z in the block
 - blockIdx: x,y,z index of the block position in the grid
 - threadIdx: x,y,z index of the thread position in the block
 
-
-
+### Memory
+- Memory is not shared between the host (CPU) and device (GPU)
+- Need ways to transfer data from the host (CPU) to device (GPU) in order to run workloads
+```
+cudaMalloc(void** devPtr, size_t size): Allocate memory on the GPU
+cudaMemcpy(void* dst, const void* src, size_t count, cudaMemcpyKind kind)
+  - cudaMemcpy(dst, src, size, cudaMemcpyHostToDevice): Copy from host to device
+//reverse operation
+  - cudaMemcpy(dst, src, size, cudaMemcpyDeviceToHost): Copy from device to host
+```
